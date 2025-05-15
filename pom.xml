@@ -28,7 +28,7 @@
 		<!-- cucumber options -->
 		<cucumber.stepsDefinitions>--glue / </cucumber.stepsDefinitions>
 		<cucumber.hooks>--glue	com/crowdar/bdd/cukes/hooks</cucumber.hooks>
-		<cucumber.tags>@Smoke</cucumber.tags>
+		<cucumber.tags>@Automated</cucumber.tags>
 		<pretty.plugin>--plugin pretty</pretty.plugin>
 		<crowdar.cucumber.plugins>--plugin pretty --plugin com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter: --plugin com.crowdar.examples.listeners.CucumberListener:</crowdar.cucumber.plugins>
 		<crowdar.extent.host.name>LocalMachine</crowdar.extent.host.name>
@@ -39,7 +39,7 @@
 		<crowdar.cucumber.option>src/test/resources/web/features ${cucumber.hooks} ${cucumber.stepsDefinitions} --tags 'not @Ignore' --tags ${cucumber.tags} ${cucumber.report}</crowdar.cucumber.option>
 
 		<!-- client project custom properties -->
-		<web-app.url>http://www.google.com.ar</web-app.url>
+		<web-app.url>https://practice.automationtesting.in/</web-app.url>
 
 	</properties>
 	<profiles>
@@ -128,7 +128,7 @@
 		<dependency>
 			<groupId>io.lippia.report</groupId>
 			<artifactId>ltm-cucumber4-adapter</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>io.lippia.report</groupId>
