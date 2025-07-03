@@ -23,33 +23,10 @@ public class MyAccountService {
         WebElement element = getElement(MyAccountConstants.LOGIN_BUTTON);
         ((JavascriptExecutor) DriverManager.getDriverInstance()).executeScript("arguments[0].click();", element);
     }
-    public static void clickOnOrders() {
-        WebElement element = getElement(MyAccountConstants.ORDERS_LINK);
-        ((JavascriptExecutor) DriverManager.getDriverInstance()).executeScript("arguments[0].click();", element);
-    }
-    public static void verifyMessage() {
-        WebActionManager.waitVisibility (MyAccountConstants.HELLO_MESSAGE);
-        Assert.assertTrue(isVisible(MyAccountConstants.HELLO_MESSAGE));
-
-    }
 
     public static void validateError(String error) {
-        String errorToValidate;
-
-        if (error.equalsIgnoreCase("Error: A user could not be found with this email address.")) {
-            errorToValidate = MyAccountConstants.EMAIL_ERROR;
-        } else if (error.equalsIgnoreCase("Error: Password is required.")) {
-            errorToValidate = MyAccountConstants.PASS_REQUIRED_ERROR;
-        } else if (error.equalsIgnoreCase("Error: Username is required.")) {
-            errorToValidate = MyAccountConstants.EMAIL_REQUIRED_ERROR;
-        } else if (error.startsWith("Error: The password you entered")) {
-            errorToValidate = MyAccountConstants.PASS_ERROR;
-        } else {
-            throw new IllegalArgumentException("Error no reconocido: " + error);
-        }
-
-        WebActionManager.waitVisibility(errorToValidate);
-        Assert.assertTrue(isVisible(errorToValidate));
+        WebActionManager.waitVisibility(MyAccountConstants.PASS_ERROR);
+        Assert.assertTrue(isVisible(MyAccountConstants.PASS_ERROR));
     }
 
     public static void clickOnLogOut() {
@@ -91,9 +68,45 @@ public class MyAccountService {
         Assert.assertTrue(isVisible(errorToValidate));
     }
 
-    public static void setCredentials(String email, String pass) {
-        WebActionManager.setInput(MyAccountConstants.EMAIL_REGISTER_INPUT, email);
-        WebActionManager.setInput(MyAccountConstants.PASS_REGISTER_INPUT, pass);
+
+    public static void setInvalidCredentials(String email, String pass) {
+        WebActionManager.setInput(MyAccountConstants.EMAIL_INPUT, email);
+        WebActionManager.setInput(MyAccountConstants.PASS_INPUT,pass);
+    }
+
+    public static void setValidCredentials(String email, String pass) {
+        WebActionManager.setInput(MyAccountConstants.EMAIL_INPUT, email);
+        WebActionManager.setInput(MyAccountConstants.PASS_INPUT,pass);
+    }
+
+    public static void signOut() {
+        WebElement element = getElement(MyAccountConstants.SIGN_OUT_LINK);
+        ((JavascriptExecutor) DriverManager.getDriverInstance()).executeScript("arguments[0].click();", element);
+    }
+
+    public static void navigatesBack() {
+        DriverManager.getDriverInstance().navigate().back();
+    }
+
+    public static void validateLoginPage() {
+        Assert.assertTrue(WebActionManager.isVisible(MyAccountConstants.LOGIN_TITLE));
+    }
+
+    public static void clicksOnMyAccount() {
+        WebElement element = getElement(MyAccountConstants.MY_ACCOUNT_LINK);
+        ((JavascriptExecutor) DriverManager.getDriverInstance()).executeScript("arguments[0].click();", element);
+
+    }
+
+    public static void clicksOnAccountDetails() {
+        WebElement element = getElement(MyAccountConstants.ACCOUNT_DETAILS_LINK);
+        ((JavascriptExecutor) DriverManager.getDriverInstance()).executeScript("arguments[0].click();", element);
+
+    }
+
+    public static void validateAccountDetails() {
+        WebActionManager.waitVisibility (MyAccountConstants.PASSWORD_CHANGE_TITLE);
+        Assert.assertTrue(isVisible(MyAccountConstants.PASSWORD_CHANGE_TITLE));
 
     }
 }

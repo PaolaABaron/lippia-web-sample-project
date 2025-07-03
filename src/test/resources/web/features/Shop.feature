@@ -2,30 +2,25 @@
 Feature:Shop
 
   Background:
-    Given The client is on shop page
+    Given The client is on checkout page
 
-  @SuccessfulFilterByProductCategories  @Smoke  @Automated
-  Scenario Outline: Successful filter by product categories
-    When The client clicks on '<category>'
-    Then The product '<product>' is shown
-    Examples:
-      | category   | product    |
-      | Android    | Android    |
-      | HTML       | HTML       |
-      | JavaScript | JavaScript |
-      | selenium   | selenium   |
 
-  @SuccessfulSorting  @Smoke  @Automated
-  Scenario Outline: Successful sorting
-    When The client clicks on '<filter>' option
-    Then The filtered '<products>' are shown
+  @SuccessfulOrderPlacement  @Smoke
+  Scenario Outline: Successful order placement
+    When The client sets: <firstName>, <lastName>, <emailAddress>, <phone>, <country>, <address>, <city>, <state>, <postcode>
+    And The client selects 'Cash on Delivery' payment method
+    And The client clicks on 'Place Order' button
+    Then The order details are shown
     Examples:
-      | filter                     | products    |
-      | Sort by popularity         | popular     |
-      | Sort by average rating     | rating      |
-      | Sort by newness            | new         |
-      | Sort by price: low to high | low to high |
-      | Sort by price: high to low | high to low |
-# NOTE: The tests for examples 4 and 5 (sorting by price: low to high / high to low) are currently failing
-# because the product prices on the site are not displayed in ascending or descending order as expected.
-# This may be due to incorrect sorting behavior on the site or inconsistent price formatting.
+      | firstName | lastName   | emailAddress      | phone | country   | address  | city           | state   | postcode |
+      | User      | Automation | usuario@gmail.com | 12345 | Argentina | Street 1 | General Alvear | Mendoza | C5620    |
+
+  @SuccessfulTaxFunctionality  @Smoke
+  Scenario Outline: Successful tax functionality
+    Then The tax amount should be correct for country <country> with rate <rate>
+
+    @ResetBeforeEach
+    Examples:
+      | country   | rate |
+      | India     | 2    |
+      | Argentina | 5    |

@@ -2,30 +2,22 @@
 Feature:Home Page
 
   Background:
-    Given The client is on home page
+    Given The client is on checkout page
 
-  @SuccessfulHomePageWithThreeSliders      @Smoke      @Automated
-  Scenario: Successful home page with three sliders
-    Then Only three sliders are shown
+  @SuccessfulCheckout     @Smoke
+  Scenario: Successful checkout
+    Then The billing, order and payment details are shown
 
-  @SuccessfulHomePageWithThreeArrivals      @Smoke     @Automated
-  Scenario: Successful home page with three arrivals
-    Then Only three arrivals are shown
 
-  @SuccessfulArrivalsReviews     @Smoke      @Automated
-  Scenario Outline: Successful arrivals reviews
-    When The client clicks on '<product>' image
-    And The client clicks on 'Reviews' button
-    Then The review for the product is shown
+  @SuccessfulOrderPlacement    @Smoke
+  Scenario Outline: Successful order placement
+    When The client sets: <firstName>, <lastName>, <emailAddress>, <phone>, <country>, <address>, <city>, <state>, <postcode>
+    And The client selects 'Cash on Delivery' payment method
+    And The client clicks on 'Place Order' button
+    Then The order details are shown
     Examples:
-      | product    |
-      | Selenium   |
-      | HTML       |
-      | JavaScript |
-
-
-
-
+      | firstName | lastName   | emailAddress      | phone | country   | address  | city           | state   | postcode |
+      | User      | Automation | usuario@gmail.com | 12345 | Argentina | Street 1 | General Alvear | Mendoza | C5620    |
 
 
 

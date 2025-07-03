@@ -6,17 +6,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lippia.web.services.LandingPageService;
 import lippia.web.services.MyAccountService;
-import lippia.web.services.OrdersService;
-import lippia.web.utils;
 
 public class MyAccountSteps {
-    @Then("The client is on the home page")
-    public void HomePage() {
-        MyAccountService.verifyMessage();
-    }
 
-    @Then("The message {string} is shown")
-    public void theMessageIsShown(String error) {
+    @Then("The message (.*) is shown")
+    public void validateErrorMessage(String error) {
         MyAccountService.validateError(error);
 
     }
@@ -31,26 +25,6 @@ public class MyAccountSteps {
     }
 
 
-    @Then("The orders are shown")
-    public void verifyOrders() {
-        OrdersService.verifyOrdersVisible();
-    }
-
-    @And("The client clicks on 'VIEW' button")
-    public void ClicksOnVIEWButton() {
-        OrdersService.clickOnView();
-    }
-
-    @Then("The orders details are shown")
-    public void verifyOrdersDetails() {
-        OrdersService.verifyOrdersDetails();
-    }
-
-    @When("The client clicks on 'Orders' link")
-    public void ClicksOnOrdersLink() {
-        MyAccountService.clickOnOrders();
-    }
-
     @When("The client clicks on 'Log out' link")
     public void ClicksOnLogOutLink() {
         MyAccountService.clickOnLogOut();
@@ -61,22 +35,36 @@ public class MyAccountSteps {
         MyAccountService.verifyLogOut();
     }
 
-    @When("The client registers with email {string} and password {string}")
+    @When("The client registers with email (.*) and password (.*)")
     public void RegistersWithEmailAndPassword(String email, String pass) {
         MyAccountService.setTheEmail(email);
         MyAccountService.setThePass(pass);
         MyAccountService.clickOnRegister();
     }
 
-    @Then("The {string} is shown")
+    @Then("The client sees the error (.*)")
     public void verifyError(String error) {
         MyAccountService.verifyError(error);
     }
 
-    @When("The client registers with the email {string} and the password {string}")
-    public void RegistersWithTheEmailAndThePassword(String email, String pass) {
-        email = utils.correoAleatorio(email);
-        MyAccountService.setCredentials(email,pass);
-        MyAccountService.clickOnRegister();
+
+    @And("The client clicks on 'Sign out' link")
+    public void SignOut() {
+        MyAccountService.signOut();
+    }
+
+    @When("The client clicks on 'My account' link")
+    public void ClicksOnMyAccount() {
+        MyAccountService.clicksOnMyAccount();
+    }
+
+    @And("The client clicks on 'Account details' link")
+    public void ClicksOnAccountDetails() {
+        MyAccountService.clicksOnAccountDetails();
+    }
+
+    @Then("The account details are shown")
+    public void validateAccountDetails() {
+        MyAccountService.validateAccountDetails();
     }
 }
